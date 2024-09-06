@@ -13,9 +13,8 @@ fn main() {
         loop {
             let bytes_read = stream_clone.read(&mut buffer).expect("Failed to read from server");
             if bytes_read > 0 {
-                print!("Message from another client: ");
-                io::stdout().write_all(&buffer[..bytes_read]).expect("Failed to write to stdout");
-                println!();
+                print!("{}", String::from_utf8_lossy(&buffer[..bytes_read]));
+                io::stdout().flush().unwrap();
             }
         }
     });
